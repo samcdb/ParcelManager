@@ -22,11 +22,4 @@ Parcels with a value of over € 1000,- need to be signed off by the "Insurance"
 - Unit tests
 - Presentation (maybe some UI / Console app)
 
-## Finishing in the assignment
-After completing the excercise, make sure to commit all code and send an email to bram.masselink@helindata.com. Make sure to finish it at least a full working day prior to the technical interview (if already scheduled). 
 
-## During the technical interview
-- Demonstrate the behavior of the code.
-- Show us how adding or removing a department would be done.
-
-For all other questions and/or remarks, please send an email to bram.masselink@helindata.com or call +31 880 185185
