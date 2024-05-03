@@ -1,0 +1,86 @@
+﻿@model DepartmentParcelsViewModel
+@{
+    ViewData["Title"] = "Parcels";
+}
+
+<h1>@Model.Department.Name Department Parcels</h1>
+<table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                Recipient
+			</th>
+            <th>
+                Container Id
+			</th>
+            <th>
+                Address
+			</th>
+            <th>
+                Postal Code
+			</th>
+            <th>
+                Weight
+			</th>
+            <th>
+                Value
+			</th>
+            <th></th>
+		</tr>
+	</thead>
+    <tbody>
+        @foreach(Parcel parcel in Model.Parcels)
+        {
+            <form method="post">
+                <input asp-for="@parcel.Id" type="hidden">
+
+                @if (Model.Department.IsApprover)
+                {
+                    <input asp-for="@parcel.IsApproved" value="true" type="hidden">
+                }
+                else
+                {
+                    <input asp-for="@parcel.IsProcessed" value="true" type="hidden">
+                }
+
+                <input asp-for="@parcel.CreatedAt" type="hidden">
+                <tr>
+                    <td width="20%">
+                        @parcel.RecipientName
+                        <input asp-for="@parcel.RecipientName" type="hidden">
+			        </td>
+                    <td width="10%">
+                        @parcel.ContainerId
+                        <input asp-for="@parcel.ContainerId" type="hidden">
+			        </td>
+                    <td width="20%">
+                        @($"{parcel.HouseNumber} {parcel.Street}, {parcel.City}")
+                        <input asp-for="@parcel.HouseNumber" type="hidden">
+                        <input asp-for="@parcel.Street" type="hidden">
+                        <input asp-for="@parcel.City" type="hidden">
+			        </td>
+                    <td width="10%">
+                        @parcel.PostalCode
+                        <input asp-for="@parcel.PostalCode" type="hidden">
+			        </td>
+                    <td width="10%">
+                        @parcel.Weight
+                        <input asp-for="@parcel.Weight" type="hidden">
+			        </td>
+                    <td width="10%">
+                        @parcel.Value
+                        <input asp-for="@parcel.Value" type="hidden">
+			        </td>
+                    <td width="20%">
+                        <div class="w-50 btn-group" role="group">
+                            <button type="submit" asp-controller="Parcel" asp-action="Update" asp-route-id="@Model.Department.Id" asp-route-id="@parcel.Id"
+                            class="btn btn-primary mx-2">Process</button>
+				        </div>
+			        </td>
+		        </tr>
+            </form>
+        }
+    </tbody>
+
+</table>
+

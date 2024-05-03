@@ -1,0 +1,57 @@
+﻿@model Department
+@{
+    ViewData["Title"] = "Create Department";
+}
+
+<h1>Create Department</h1>
+<form method="post">
+  <div class="form-group mb-3">
+    <label for="departmentName">Department Name</label>
+    <input asp-for="@Model.Name" type="text" class="form-control" id="departmentName"  placeholder="Enter department name">
+  </div>
+  <div id="lowerWeightThresholdWrapper" class="form-group mb-3">
+    <label for="lowerWeightThreshold">Lower Weight Threshold</label>
+    <input asp-for="@Model.LowerWeight" type="number" class="form-control" id="lowerWeightThreshold" placeholder="Greater than">
+  </div>
+    <div id="upperWeightThresholdWrapper" class="form-group mb-3">
+    <label for="upperWeightThreshold">Upper Weight Threshold</label>
+    <input asp-for="@Model.UpperWeight" type="number" class="form-control" id="upperWeightThreshold" placeholder="Less than or equal to">
+  </div>
+  <div class="form-check mb-3">
+    <label class="form-check-label" for="isApproverCheck">Responsible for Sign-Off</label>
+    <input asp-for="@Model.IsApprover" type="checkbox" class="form-check-input" id="isApproverCheck">
+  </div>
+  <div id="valueThresholdWrapper" class="form-group mb-3">
+    <label for="valueThreshold">Value Threshold</label>
+    <input asp-for="@Model.ValueThreshold" type="number" class="form-control" id="valueThreshold" placeholder="Greater than">
+  </div>
+  <button type="submit" asp-controller="Department" asp-action="Create" class="btn btn-primary">Create</button>
+</form>
+
+<script>
+    const lowerWeightThreshold = document.getElementById("lowerWeightThreshold");
+    const upperWeightThreshold = document.getElementById("upperWeightThreshold");
+    const valueThreshold = document.getElementById("valueThreshold");
+    const isApproverCheckbox = document.getElementById("isApproverCheck");
+    
+    valueThreshold.setAttribute("disabled", "");
+
+    // disable weight thresholds if a department is set to be an approver and enable value threshold (and vice-versa)
+    isApproverCheckbox.onchange = (caller, eventArgs) => {
+        if (isApproverCheckbox.checked) {
+            
+            valueThreshold.removeAttribute("disabled");
+            lowerWeightThreshold.value = null;
+            upperWeightThreshold.value = null;
+            lowerWeightThreshold.setAttribute("disabled", "");
+            upperWeightThreshold.setAttribute("disabled", "");
+
+            return;
+        }
+
+        valueThreshold.value = null;
+        valueThreshold.setAttribute("disabled", "");
+        lowerWeightThreshold.removeAttribute("disabled");
+        upperWeightThreshold.removeAttribute("disabled");
+    }
+</script>
